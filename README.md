@@ -1,5 +1,5 @@
 # Generator Faktur WINFORM VERZE
-* Je to vylepšená verze původní [konzolové aplikace]([https://pages.github.com/](https://github.com/LeonidCharikov/Generator_Faktur)).
+* Je to vylepšená verze původní [konzolové aplikace](https://github.com/LeonidCharikov/Generator_Faktur).
 * Hlavní vylepšení že je to ted okenní aplikace vytvořená ve Visual Studio pomocí Windows Forms.
 * Má základní grafické rozhraní
 * Základ projektu je stejný. Ted ale program už neuklkádá automaticky soubor ISDOC do složky kde program běží, ale uživatel musí sám vybírat cestu ukládání pomocí otevření FileDialog.
