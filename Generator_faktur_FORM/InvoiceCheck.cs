@@ -38,11 +38,9 @@ namespace Generator_faktur_FORM
             lblDate.Text = _invoice.IssueDate.ToString("dd.MM.yyyy");
             lblSupplier.Text = $"{_invoice.SupplierName} (IČO: {_invoice.SupplierICO})";
             lblCustomer.Text = $"{_invoice.CustomerName} (IČO: {_invoice.CustomerICO})";
-            lblItem.Text = $"{_invoice.ItemDescription}";
-            lblQuantity.Text = _invoice.Quantity.ToString();
+            dgvPreview.DataSource = _invoice.Items;
             CultureInfo czechCulture = new CultureInfo("cs-CZ");
-            lblPrice.Text = _invoice.Price.ToString("C", czechCulture);
-            lblTotal.Text = _invoice.Total.ToString("C", czechCulture);
+            lblTotal.Text = _invoice.TotalAmount.ToString("C", czechCulture);
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -94,5 +92,6 @@ namespace Generator_faktur_FORM
             this.Close();
         }
 
+       
     }
 }

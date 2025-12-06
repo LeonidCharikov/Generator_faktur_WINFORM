@@ -15,6 +15,8 @@ namespace Generator_faktur_FORM
             timer1.Start();
         }
 
+
+
         private void btnCreate_Click(object sender, EventArgs e)
         {
             // Otevře formulář pro vytvoření nové faktury

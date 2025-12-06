@@ -13,40 +13,26 @@ namespace Generator_faktur_FORM
         {
             var errors = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(invoice.SupplierName))
+            // Přidat .Trim(), aby se ignorovaly náhodné mezery
+            string supIco = invoice.SupplierICO?.Trim() ?? "";
+            string custIco = invoice.CustomerICO?.Trim() ?? "";
+
+            if (!Regex.IsMatch(supIco, @"^\d{8}$"))
             {
-                errors.Add("Jméno dodavatele nesmí být prázdné.");
+                errors.Add($"IČO dodavatele '{supIco}' je chybné. Musí obsahovat přesně 8 číslic.");
             }
 
-            if (string.IsNullOrWhiteSpace(invoice.CustomerName))
+            if (!Regex.IsMatch(custIco, @"^\d{8}$"))
             {
-                errors.Add("Jméno zákazníka nesmí být prázdné.");
+                errors.Add($"IČO zákazníka '{custIco}' je chybné. Musí obsahovat přesně 8 číslic.");
             }
 
-            if (!Regex.IsMatch(invoice.SupplierICO ?? "", @"^\d{8}$"))
+            // Validace položek
+            if (invoice.Items == null || invoice.Items.Count == 0)
             {
-                errors.Add("IČO dodavatele musí obsahovat přesně 8 číslic.");
+                errors.Add("Faktura musí obsahovat alespoň jednu položku.");
             }
 
-            if (!Regex.IsMatch(invoice.CustomerICO ?? "", @"^\d{8}$"))
-            {
-                errors.Add("IČO zákazníka musí obsahovat přesně 8 číslic.");
-            }
-
-            if (invoice.Quantity <= 0)
-            {
-                errors.Add("Množství musí být větší než nula.");
-            }
-
-            if (invoice.Price <= 0)
-            {
-                errors.Add("Cena musí být větší než nula.");
-            }
-
-            if(string.IsNullOrWhiteSpace(invoice.ItemDescription))
-            {
-                errors.Add("Popis nesmí být prázdné.");
-            }
             return errors;
         }
 

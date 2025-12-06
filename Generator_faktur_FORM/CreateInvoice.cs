@@ -1,96 +1,109 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace Generator_faktur_FORM
 {
     public partial class CreateInvoice : Form
     {
+        // Použijeme BindingList pro automatické propojení s DataGridView
+        private BindingList<InvoiceItem> _items;
+
         public CreateInvoice()
         {
             InitializeComponent();
+            _items = new BindingList<InvoiceItem>();
         }
-
 
         private void CreateInvoice_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            // Nastavení zdroje dat pro tabulku
+            dgvItems.DataSource = _items;
+            ConfigureGrid();
         }
-        private void btnCreate_Click(object sender, EventArgs e)
+
+        private void ConfigureGrid()
         {
-            // 1. Validace vstupů
-            if (!decimal.TryParse(txtQuantity.Text, out decimal quantity) || !decimal.TryParse(txtPrice.Text, out decimal price) || !DateTime.TryParseExact(txtDate.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+            // Přejmenování sloupců pro uživatele (pokud se nevygenerují automaticky správně)
+            // Toto lze nastavit i v Designeru
+            if (dgvItems.Columns["Description"] != null) dgvItems.Columns["Description"].HeaderText = "Popis";
+            if (dgvItems.Columns["Quantity"] != null) dgvItems.Columns["Quantity"].HeaderText = "Množství";
+            if (dgvItems.Columns["UnitPrice"] != null) dgvItems.Columns["UnitPrice"].HeaderText = "Cena za KS";
+            if (dgvItems.Columns["TotalPrice"] != null) dgvItems.Columns["TotalPrice"].HeaderText = "Celkem";
+        }
+
+        // Tlačítko pro PŘIDÁNÍ jedné položky do seznamu
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            // Validace vstupů pro položku
+            if (string.IsNullOrWhiteSpace(txtItemDescription.Text) ||
+                !decimal.TryParse(txtQuantity.Text, out decimal qty) ||
+                !decimal.TryParse(txtPrice.Text, out decimal price))
             {
-                MessageBox.Show("Zkontrolujte prosím formát data, množství a ceny.", "Chybný formát", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vyplňte správně popis, množství a cenu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Sestavení objektu faktury z dat ve formuláři
+            // Vytvoření a přidání položky
+            var newItem = new InvoiceItem
+            {
+                Description = txtItemDescription.Text,
+                Quantity = qty,
+                UnitPrice = price
+            };
+
+            _items.Add(newItem); // Tabulka se sama aktualizuje
+
+            // Vyčištění políček pro další zadání
+            txtItemDescription.Clear();
+            txtQuantity.Clear();
+            txtPrice.Clear();
+            txtItemDescription.Focus();
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            // Validace hlavičky faktury
+            if (!DateTime.TryParseExact(txtDate.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+            {
+                MessageBox.Show("Zkontrolujte formát data.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Sestavení faktury
             Invoice invoiceToValidate = new Invoice
             {
                 Id = txtId.Text,
-                IssueDate = DateTime.ParseExact(txtDate.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture),
+                IssueDate = date,
                 SupplierName = txtSupplierName.Text,
                 SupplierICO = txtSupplierICO.Text,
                 CustomerName = txtCustomerName.Text,
                 CustomerICO = txtCustomerICO.Text,
-                ItemDescription = txtItemDescription.Text,
-                Quantity = decimal.Parse(txtQuantity.Text),
-                Price = decimal.Parse(txtPrice.Text)
+                // Položky převedeme z BindingList do List
+                Items = _items.ToList()
             };
 
+            // Validace
             var validator = new InvoiceValidator();
-            List<string> validationErrors = validator.Validate(invoiceToValidate);
+            var errors = validator.Validate(invoiceToValidate);
 
-            // Zkontrolujeme, zda existují nějaké chyby
-            if (validationErrors.Any()) // .Any() je z System.Linq
+            if (errors.Any())
             {
-                // Spojíme všechny chyby do jedné zprávy
-                string errorMessage = string.Join("\n", validationErrors);
-                MessageBox.Show(errorMessage, "Chyba validace", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Zastavíme další zpracování
+                MessageBox.Show(string.Join("\n", errors), "Chyba validace", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-
-
-            // 3. Otevření kontrolního formuláře a předání dat
+            // Otevření kontroly
             using (InvoiceCheck checkForm = new InvoiceCheck(invoiceToValidate))
             {
-                // Zobrazíme kontrolní formulář a počkáme na jeho výsledek.
-                DialogResult result = checkForm.ShowDialog();
-
-                // Pokud uživatel v kontrolním okně potvrdil a úspěšně uložil (výsledek je OK)...
-                if (result == DialogResult.OK)
+                if (checkForm.ShowDialog() == DialogResult.OK)
                 {
                     this.Close();
                 }
             }
         }
-
-
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            using (MainForm mainForm = new MainForm())
-            {
-                this.Hide();
-                mainForm.ShowDialog();
-            }
-        }
-
-        //Zapnutí časovače pro zobrazení data
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            datetxt.Text = DateTime.Now.ToLongDateString();
-        }
     }
 }
-

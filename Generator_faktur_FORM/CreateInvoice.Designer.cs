@@ -35,33 +35,36 @@
             createTxtSupICO = new Label();
             createTxtCustName = new Label();
             createTxtCustICO = new Label();
-            createTxtItemDesc = new Label();
-            createTxtItemQuant = new Label();
-            createTxtItemPrice = new Label();
-            btnBack = new Button();
-            btnCreate = new Button();
             txtId = new TextBox();
             txtDate = new TextBox();
             txtSupplierName = new TextBox();
             txtSupplierICO = new TextBox();
             txtCustomerName = new TextBox();
             txtCustomerICO = new TextBox();
-            txtItemDescription = new TextBox();
-            txtQuantity = new TextBox();
-            txtPrice = new TextBox();
             datetxt = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            dgvItems = new DataGridView();
+            txtItemDescription = new TextBox();
+            label5 = new Label();
+            txtQuantity = new TextBox();
+            txtPrice = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            btnAddItem = new Button();
+            label8 = new Label();
+            btnCreate = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             SuspendLayout();
             // 
             // createTxtId
             // 
             createTxtId.AutoSize = true;
             createTxtId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            createTxtId.Location = new Point(155, 26);
+            createTxtId.Location = new Point(22, 23);
             createTxtId.Name = "createTxtId";
             createTxtId.Size = new Size(114, 20);
             createTxtId.TabIndex = 1;
@@ -71,7 +74,7 @@
             // 
             createTxtDate.AutoSize = true;
             createTxtDate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            createTxtDate.Location = new Point(12, 70);
+            createTxtDate.Location = new Point(22, 58);
             createTxtDate.Name = "createTxtDate";
             createTxtDate.Size = new Size(257, 20);
             createTxtDate.TabIndex = 2;
@@ -80,7 +83,7 @@
             // createTxtSupName
             // 
             createTxtSupName.AutoSize = true;
-            createTxtSupName.Location = new Point(62, 165);
+            createTxtSupName.Location = new Point(19, 304);
             createTxtSupName.Name = "createTxtSupName";
             createTxtSupName.Size = new Size(147, 15);
             createTxtSupName.TabIndex = 3;
@@ -89,7 +92,7 @@
             // createTxtSupICO
             // 
             createTxtSupICO.AutoSize = true;
-            createTxtSupICO.Location = new Point(33, 198);
+            createTxtSupICO.Location = new Point(20, 337);
             createTxtSupICO.Name = "createTxtSupICO";
             createTxtSupICO.Size = new Size(176, 15);
             createTxtSupICO.TabIndex = 4;
@@ -98,7 +101,7 @@
             // createTxtCustName
             // 
             createTxtCustName.AutoSize = true;
-            createTxtCustName.Location = new Point(382, 165);
+            createTxtCustName.Location = new Point(19, 169);
             createTxtCustName.Name = "createTxtCustName";
             createTxtCustName.Size = new Size(136, 15);
             createTxtCustName.TabIndex = 5;
@@ -107,124 +110,53 @@
             // createTxtCustICO
             // 
             createTxtCustICO.AutoSize = true;
-            createTxtCustICO.Location = new Point(353, 198);
+            createTxtCustICO.Location = new Point(20, 202);
             createTxtCustICO.Name = "createTxtCustICO";
             createTxtCustICO.Size = new Size(165, 15);
             createTxtCustICO.TabIndex = 6;
             createTxtCustICO.Text = "Zadejte ICO zakaznika (8 cisel)";
             // 
-            // createTxtItemDesc
-            // 
-            createTxtItemDesc.AutoSize = true;
-            createTxtItemDesc.Location = new Point(74, 280);
-            createTxtItemDesc.Name = "createTxtItemDesc";
-            createTxtItemDesc.Size = new Size(122, 15);
-            createTxtItemDesc.TabIndex = 7;
-            createTxtItemDesc.Text = "Zadejte popis polozky";
-            // 
-            // createTxtItemQuant
-            // 
-            createTxtItemQuant.AutoSize = true;
-            createTxtItemQuant.Location = new Point(50, 388);
-            createTxtItemQuant.Name = "createTxtItemQuant";
-            createTxtItemQuant.Size = new Size(141, 15);
-            createTxtItemQuant.TabIndex = 8;
-            createTxtItemQuant.Text = "Zadejte mnozstvi polozky";
-            // 
-            // createTxtItemPrice
-            // 
-            createTxtItemPrice.AutoSize = true;
-            createTxtItemPrice.Location = new Point(42, 344);
-            createTxtItemPrice.Name = "createTxtItemPrice";
-            createTxtItemPrice.Size = new Size(154, 15);
-            createTxtItemPrice.TabIndex = 9;
-            createTxtItemPrice.Text = "Zadejte cenu polozky za kus";
-            // 
-            // btnBack
-            // 
-            btnBack.BackColor = Color.AntiqueWhite;
-            btnBack.Location = new Point(559, 368);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(88, 54);
-            btnBack.TabIndex = 10;
-            btnBack.Text = "Zpět";
-            btnBack.UseVisualStyleBackColor = false;
-            btnBack.Click += btnBack_Click;
-            // 
-            // btnCreate
-            // 
-            btnCreate.BackColor = Color.AntiqueWhite;
-            btnCreate.Location = new Point(675, 368);
-            btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(88, 54);
-            btnCreate.TabIndex = 11;
-            btnCreate.Text = "Vytvořit";
-            btnCreate.UseVisualStyleBackColor = false;
-            btnCreate.Click += btnCreate_Click;
-            // 
             // txtId
             // 
-            txtId.Location = new Point(275, 26);
+            txtId.Location = new Point(171, 24);
             txtId.Name = "txtId";
             txtId.Size = new Size(133, 23);
             txtId.TabIndex = 12;
             // 
             // txtDate
             // 
-            txtDate.Location = new Point(275, 71);
+            txtDate.Location = new Point(171, 81);
             txtDate.Name = "txtDate";
             txtDate.Size = new Size(133, 23);
             txtDate.TabIndex = 13;
             // 
             // txtSupplierName
             // 
-            txtSupplierName.Location = new Point(212, 162);
+            txtSupplierName.Location = new Point(172, 301);
             txtSupplierName.Name = "txtSupplierName";
             txtSupplierName.Size = new Size(132, 23);
             txtSupplierName.TabIndex = 14;
             // 
             // txtSupplierICO
             // 
-            txtSupplierICO.Location = new Point(212, 195);
+            txtSupplierICO.Location = new Point(172, 358);
             txtSupplierICO.Name = "txtSupplierICO";
             txtSupplierICO.Size = new Size(132, 23);
             txtSupplierICO.TabIndex = 22;
             // 
             // txtCustomerName
             // 
-            txtCustomerName.Location = new Point(525, 162);
+            txtCustomerName.Location = new Point(172, 166);
             txtCustomerName.Name = "txtCustomerName";
             txtCustomerName.Size = new Size(132, 23);
             txtCustomerName.TabIndex = 16;
             // 
             // txtCustomerICO
             // 
-            txtCustomerICO.Location = new Point(525, 195);
+            txtCustomerICO.Location = new Point(172, 220);
             txtCustomerICO.Name = "txtCustomerICO";
             txtCustomerICO.Size = new Size(132, 23);
             txtCustomerICO.TabIndex = 17;
-            // 
-            // txtItemDescription
-            // 
-            txtItemDescription.Location = new Point(212, 277);
-            txtItemDescription.Multiline = true;
-            txtItemDescription.Name = "txtItemDescription";
-            txtItemDescription.Size = new Size(259, 48);
-            txtItemDescription.TabIndex = 18;
-            // 
-            // txtQuantity
-            // 
-            txtQuantity.Location = new Point(212, 385);
-            txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(132, 23);
-            txtQuantity.TabIndex = 21;
-            // 
-            // txtPrice
-            // 
-            txtPrice.Location = new Point(212, 344);
-            txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(132, 23);
-            txtPrice.TabIndex = 20;
             // 
             // datetxt
             // 
@@ -234,10 +166,6 @@
             datetxt.Size = new Size(145, 23);
             datetxt.TabIndex = 0;
             datetxt.Text = "date";
-            // 
-            // timer1
-            // 
-            timer1.Tick += timer1_Tick;
             // 
             // label1
             // 
@@ -253,7 +181,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Underline);
-            label2.Location = new Point(35, 119);
+            label2.Location = new Point(13, 256);
             label2.Name = "label2";
             label2.Size = new Size(180, 30);
             label2.TabIndex = 24;
@@ -263,7 +191,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Underline);
-            label3.Location = new Point(356, 119);
+            label3.Location = new Point(19, 121);
             label3.Name = "label3";
             label3.Size = new Size(162, 30);
             label3.TabIndex = 25;
@@ -273,11 +201,94 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Underline, GraphicsUnit.Point, 204);
-            label4.Location = new Point(128, 239);
+            label4.Location = new Point(458, 48);
             label4.Name = "label4";
             label4.Size = new Size(78, 25);
             label4.TabIndex = 26;
             label4.Text = "Produkt";
+            // 
+            // dgvItems
+            // 
+            dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvItems.Location = new Point(334, 188);
+            dgvItems.Name = "dgvItems";
+            dgvItems.Size = new Size(454, 164);
+            dgvItems.TabIndex = 27;
+            // 
+            // txtItemDescription
+            // 
+            txtItemDescription.Location = new Point(430, 89);
+            txtItemDescription.Name = "txtItemDescription";
+            txtItemDescription.Size = new Size(138, 23);
+            txtItemDescription.TabIndex = 28;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(370, 92);
+            label5.Name = "label5";
+            label5.Size = new Size(39, 15);
+            label5.TabIndex = 30;
+            label5.Text = "Název";
+            // 
+            // txtQuantity
+            // 
+            txtQuantity.Location = new Point(430, 118);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.Size = new Size(138, 23);
+            txtQuantity.TabIndex = 31;
+            // 
+            // txtPrice
+            // 
+            txtPrice.Location = new Point(430, 147);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(138, 23);
+            txtPrice.TabIndex = 32;
+            // 
+            // label6
+            // 
+            label6.Location = new Point(0, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(100, 23);
+            label6.TabIndex = 35;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(370, 150);
+            label7.Name = "label7";
+            label7.Size = new Size(34, 15);
+            label7.TabIndex = 34;
+            label7.Text = "Cena";
+            // 
+            // btnAddItem
+            // 
+            btnAddItem.Location = new Point(592, 109);
+            btnAddItem.Name = "btnAddItem";
+            btnAddItem.Size = new Size(122, 38);
+            btnAddItem.TabIndex = 36;
+            btnAddItem.Text = "Přidat Položku";
+            btnAddItem.UseVisualStyleBackColor = true;
+            btnAddItem.Click += btnAddItem_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(369, 121);
+            label8.Name = "label8";
+            label8.Size = new Size(55, 15);
+            label8.TabIndex = 37;
+            label8.Text = "Množství";
+            // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(623, 376);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(130, 62);
+            btnCreate.TabIndex = 38;
+            btnCreate.Text = "Vytvořit";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreate_Click;
             // 
             // CreateInvoice
             // 
@@ -285,25 +296,27 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnCreate);
+            Controls.Add(label8);
+            Controls.Add(btnAddItem);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(txtPrice);
+            Controls.Add(txtQuantity);
+            Controls.Add(label5);
+            Controls.Add(txtItemDescription);
+            Controls.Add(dgvItems);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(datetxt);
-            Controls.Add(txtPrice);
-            Controls.Add(txtQuantity);
-            Controls.Add(txtItemDescription);
             Controls.Add(txtCustomerICO);
             Controls.Add(txtCustomerName);
             Controls.Add(txtSupplierICO);
             Controls.Add(txtSupplierName);
             Controls.Add(txtDate);
             Controls.Add(txtId);
-            Controls.Add(btnCreate);
-            Controls.Add(btnBack);
-            Controls.Add(createTxtItemPrice);
-            Controls.Add(createTxtItemQuant);
-            Controls.Add(createTxtItemDesc);
             Controls.Add(createTxtCustICO);
             Controls.Add(createTxtCustName);
             Controls.Add(createTxtSupICO);
@@ -313,6 +326,7 @@
             Name = "CreateInvoice";
             Text = "CreateInvoice";
             Load += CreateInvoice_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -324,25 +338,27 @@
         private Label createTxtSupICO;
         private Label createTxtCustName;
         private Label createTxtCustICO;
-        private Label createTxtItemDesc;
-        private Label createTxtItemQuant;
-        private Label createTxtItemPrice;
-        private Button btnBack;
-        private Button btnCreate;
         private TextBox txtId;
         private TextBox txtDate;
         private TextBox txtSupplierName;
         private TextBox txtSupplierICO;
         private TextBox txtCustomerName;
         private TextBox txtCustomerICO;
-        private TextBox txtItemDescription;
-        private TextBox txtQuantity;
-        private TextBox txtPrice;
         private Label datetxt;
         private System.Windows.Forms.Timer timer1;
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
+        private DataGridView dgvItems;
+        private TextBox txtItemDescription;
+        private Label label5;
+        private TextBox txtQuantity;
+        private TextBox txtPrice;
+        private Label label6;
+        private Label label7;
+        private Button btnAddItem;
+        private Label label8;
+        private Button btnCreate;
     }
 }
