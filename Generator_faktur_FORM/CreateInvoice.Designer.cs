@@ -57,6 +57,7 @@
             btnAddItem = new Button();
             label8 = new Label();
             btnCreate = new Button();
+            btnBack = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             SuspendLayout();
             // 
@@ -290,12 +291,23 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(484, 376);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(124, 62);
+            btnBack.TabIndex = 39;
+            btnBack.Text = "Zpět";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // CreateInvoice
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnBack);
             Controls.Add(btnCreate);
             Controls.Add(label8);
             Controls.Add(btnAddItem);
@@ -360,5 +372,6 @@
         private Button btnAddItem;
         private Label label8;
         private Button btnCreate;
+        private Button btnBack;
     }
 }

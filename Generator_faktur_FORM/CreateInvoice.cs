@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Generator_faktur_FORM
@@ -19,7 +21,6 @@ namespace Generator_faktur_FORM
 
         private void CreateInvoice_Load(object sender, EventArgs e)
         {
-            timer1.Start();
             // Nastavení zdroje dat pro tabulku
             dgvItems.DataSource = _items;
             ConfigureGrid();
@@ -62,8 +63,48 @@ namespace Generator_faktur_FORM
             txtQuantity.Clear();
             txtPrice.Clear();
             txtItemDescription.Focus();
+            timer1.Start();
+
+        private void ConfigureGrid()
+        {
+            // Přejmenování sloupců pro uživatele (pokud se nevygenerují automaticky správně)
+            // Toto lze nastavit i v Designeru
+            if (dgvItems.Columns["Description"] != null) dgvItems.Columns["Description"].HeaderText = "Popis";
+            if (dgvItems.Columns["Quantity"] != null) dgvItems.Columns["Quantity"].HeaderText = "Množství";
+            if (dgvItems.Columns["UnitPrice"] != null) dgvItems.Columns["UnitPrice"].HeaderText = "Cena za KS";
+            if (dgvItems.Columns["TotalPrice"] != null) dgvItems.Columns["TotalPrice"].HeaderText = "Celkem";
         }
 
+        // Tlačítko pro PŘIDÁNÍ jedné položky do seznamu
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            // Validace vstupů pro položku
+            if (string.IsNullOrWhiteSpace(txtItemDescription.Text) ||
+                !decimal.TryParse(txtQuantity.Text, out decimal qty) ||
+                !decimal.TryParse(txtPrice.Text, out decimal price))
+            {
+                MessageBox.Show("Vyplňte správně popis, množství a cenu.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Vytvoření a přidání položky
+            var newItem = new InvoiceItem
+            {
+                Description = txtItemDescription.Text,
+                Quantity = qty,
+                UnitPrice = price
+            };
+
+            _items.Add(newItem); // Tabulka se sama aktualizuje
+
+            // Vyčištění políček pro další zadání
+            txtItemDescription.Clear();
+            txtQuantity.Clear();
+            txtPrice.Clear();
+            txtItemDescription.Focus();
+        }
+
+        }
         private void btnCreate_Click(object sender, EventArgs e)
         {
             // Validace hlavičky faktury
@@ -103,7 +144,21 @@ namespace Generator_faktur_FORM
                 {
                     this.Close();
                 }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            using (MainForm mainForm = new MainForm())
+            {
+                this.Hide();
+                mainForm.ShowDialog();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            datetxt.Text = DateTime.Now.ToLongDateString();
+            datetxt.Text = DateTime.Now.ToLongDateString();
         }
     }
 }

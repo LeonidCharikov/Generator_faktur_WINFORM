@@ -111,6 +111,7 @@
             timetxt.Size = new Size(53, 25);
             timetxt.TabIndex = 14;
             timetxt.Text = "time";
+            timetxt.Click += timetxt_Click;
             // 
             // timer1
             // 

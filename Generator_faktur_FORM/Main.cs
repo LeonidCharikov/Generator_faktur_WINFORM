@@ -37,16 +37,12 @@ namespace Generator_faktur_FORM
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "Otevřít fakturu";
-                // Nastavíme filtr vyhledávaných souborů na ISDOC formát
                 openFileDialog.Filter = "ISDOC soubory (*.isdoc)|*.isdoc|Všechny soubory (*.*)|*.*";
 
-                // Zobrazíme dialog a pokud uživatel vybere soubor a klikne na OK
+
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // zisk cesty k vybranému souboru
                     string filePath = openFileDialog.FileName;
-
-                    // Volání metody pro načtení faktury ze souboru
                     Invoice loadedInvoice = invoiceService.ReadInvoice(filePath, out string error);
 
                     // Kontrola načtení faktury
@@ -67,11 +63,15 @@ namespace Generator_faktur_FORM
 
         }
 
-        // Aktualizace data a času v hlavním formuláři
         private void timer1_Tick(object sender, EventArgs e)
         {
             datetxt.Text = DateTime.Now.ToLongDateString();
             timetxt.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void timetxt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

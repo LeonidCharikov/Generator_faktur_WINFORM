@@ -12,7 +12,7 @@ namespace Generator_faktur_FORM
         public decimal Quantity { get; set; }
         public decimal UnitPrice { get; set; }
 
-        // Vypočítaná vlastnost (Read-only)
+        // Vypočítaná vlastnost
         public decimal TotalPrice => Quantity * UnitPrice;
     }
 }
