@@ -168,6 +168,10 @@
             datetxt.TabIndex = 0;
             datetxt.Text = "date";
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -293,11 +297,11 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(484, 376);
+            btnBack.Location = new Point(491, 376);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(124, 62);
+            btnBack.Size = new Size(126, 62);
             btnBack.TabIndex = 39;
-            btnBack.Text = "Zpět";
+            btnBack.Text = "Zpet";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
