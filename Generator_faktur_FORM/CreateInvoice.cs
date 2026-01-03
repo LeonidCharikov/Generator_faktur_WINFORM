@@ -24,13 +24,12 @@ namespace Generator_faktur_FORM
             timer1.Start();
             // Nastavení zdroje dat pro tabulku
             dgvItems.DataSource = _items;
-            ConfigureGrid();
+
         }
 
         private void ConfigureGrid()
         {
             // Přejmenování sloupců pro uživatele (pokud se nevygenerují automaticky správně)
-            // Toto lze nastavit i v Designeru
             if (dgvItems.Columns["Description"] != null) dgvItems.Columns["Description"].HeaderText = "Popis";
             if (dgvItems.Columns["Quantity"] != null) dgvItems.Columns["Quantity"].HeaderText = "Množství";
             if (dgvItems.Columns["UnitPrice"] != null) dgvItems.Columns["UnitPrice"].HeaderText = "Cena za KS";
